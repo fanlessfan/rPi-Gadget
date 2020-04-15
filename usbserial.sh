@@ -36,15 +36,15 @@ fi
 cd /sys/kernel/config/usb_gadget/
 mkdir  ${GADGET} && cd ${GADGET}
 
-echo 0x1d6b > idVendor  # Linux Foundation
-echo 0x0104 > idProduct # Multifunction Composite Gadget
+#echo 0x1d6b > idVendor  # Linux Foundation
+#echo 0x0104 > idProduct # Multifunction Composite Gadget
 
 # Windows id
 #echo 0x04b3 > idVendor
 #echo 0x4010 > idProduct
 
-echo 0x0100 > bcdDevice # v1.0.0
-echo 0x0200 > bcdUSB    # USB 2.0
+#echo 0x0100 > bcdDevice # v1.0.0
+#echo 0x0200 > bcdUSB    # USB 2.0
 
 # https://www.usb.org/defined-class-codes
 #echo 0xEF > bDeviceClass # Miscellaneous Device
@@ -53,15 +53,31 @@ echo 0x0200 > bcdUSB    # USB 2.0
 #echo 0x00 > bDeviceProtocol
 
 # for windows
+#echo 0xEF > bDeviceClass
+#echo 0x02 > bDeviceSubClass
+#echo 0x01 > bDeviceProtocol
+#echo 0x08 > bMaxPacketSize0
+
+#mkdir -p strings/0x409
+#echo "ZHOUINC0M001" > strings/0x409/serialnumber
+#echo "ZHOU INC"        > strings/0x409/manufacturer
+#echo "Pi0 Serial"  > strings/0x409/product
+
+echo 0x1d6b > idVendor  # Linux Foundation
+echo 0x1347 > idProduct
+
+echo 0x0100 > bcdDevice # v1.0.0
+echo 0x0200 > bcdUSB    # USB 2.0
+
 echo 0xEF > bDeviceClass
 echo 0x02 > bDeviceSubClass
 echo 0x01 > bDeviceProtocol
-echo 0x08 > bMaxPacketSize0
+echo 0x40 > bMaxPacketSize0
 
 mkdir -p strings/0x409
-echo "ZHOUINC0M001" > strings/0x409/serialnumber
+echo `cat /proc/cpuinfo | grep Serial | cut -d ' ' -f 2` > strings/0x409/serialnumber
 echo "ZHOU INC"        > strings/0x409/manufacturer
-echo "Pi0 Serial"  > strings/0x409/product
+echo "Pi0 Serial"   > strings/0x409/product
 
 # Serial, sudo systemctl enable getty@ttyGS0.service to enble login
 mkdir -p functions/acm.GS0    # serial
