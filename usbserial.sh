@@ -1,7 +1,5 @@
 #!/bin/bash 
 
-#6e28
-
 modprobe libcomposite
 
 GADGET=serial
@@ -72,6 +70,6 @@ ls /sys/class/udc/ > UDC
 
 #systemctl enable getty@ttyGS0.service 
 #sleep 5
-systemctl start getty@ttyGS0.service 
+#systemctl start getty@ttyGS0.service 
 
 
