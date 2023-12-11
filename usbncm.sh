@@ -20,7 +20,7 @@ echo 0x08 > bMaxPacketSize0
 mkdir -p strings/0x409
 echo `cat /proc/cpuinfo | grep Serial | cut -d ' ' -f 2` > strings/0x409/serialnumber
 echo "ZHOU INC"        > strings/0x409/manufacturer
-echo "rPi NCM"   > strings/0x409/product
+echo "rPi NCM+ACM"   > strings/0x409/product
 
 # NCM
 mkdir -p functions/ncm.usb0  # network
