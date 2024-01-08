@@ -25,34 +25,28 @@ echo 0x08 > bMaxPacketSize0
 mkdir -p strings/0x409
 echo `cat /proc/cpuinfo | grep Serial | cut -d ' ' -f 2` > strings/0x409/serialnumber
 echo "ZHOU INC"        > strings/0x409/manufacturer
-echo "rPi ECM+ACM"   > strings/0x409/product
+echo "rPi NCM+ACM"   > strings/0x409/product
 
-# ECM
-mkdir -p functions/ecm.usb0  # network
+# NCM
+mkdir -p functions/ncm.usb0  # network
 # HOST MAC ZHOUH:last two digi of serail number
 # SELF MAC ZHOUS:last two digi of serail number
 HOST="5A:48:4F:55:48:83" # "HostPC"
 SELF="5A:48:4F:55:53:83" # "BadUSB"
-echo $HOST > functions/ecm.usb0/host_addr
-echo $SELF > functions/ecm.usb0/dev_addr
-
+echo $HOST > functions/ncm.usb0/host_addr
+echo $SELF > functions/ncm.usb0/dev_addr
 
 # Serial, sudo systemctl enable getty@ttyGS0.service to enble login
 mkdir -p functions/acm.gs0    # serial
 
-# sudo systemctl enable getty@ttyGS0.service
-# screen /dev/tty.usbmodem14101 115200
-# Ctrl+a d to detatch the screen session
-
 # config c.1 for ncm and acm
 mkdir -p         configs/c.1/strings/0x409
-echo "rPi ECM+ACM" > configs/c.1/strings/0x409/configuration
+echo "rPi NCM+ACM" > configs/c.1/strings/0x409/configuration
 echo 1000 > configs/c.1/MaxPower # 1000 mA
 echo 0x80 > configs/c.1/bmAttributes # Only bus powered
 
 ln -s functions/acm.gs0 configs/c.1
-ln -s functions/ecm.usb0 configs/c.1
-
+ln -s functions/ncm.usb0 configs/c.1
 
 udevadm settle -t 5 || :
 ls /sys/class/udc/ > UDC
