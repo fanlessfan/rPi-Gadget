@@ -1,6 +1,7 @@
 #!/bin/bash 
 
-#modprobe libcomposite
+# add dtoverlay=dwc2 to /boot/firmware/config.txt
+# modprobe libcomposite
 
 cd /sys/kernel/config/usb_gadget/
 mkdir composite && cd composite
