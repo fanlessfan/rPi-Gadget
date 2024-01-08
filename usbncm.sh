@@ -37,6 +37,8 @@ echo $HOST > functions/ncm.usb0/host_addr
 echo $SELF > functions/ncm.usb0/dev_addr
 
 # Serial, sudo systemctl enable getty@ttyGS0.service to enble login
+# screen /dev/tty.usbmodem14101 115200
+# CTL-a d
 mkdir -p functions/acm.gs0    # serial
 
 # config c.1 for ncm and acm
